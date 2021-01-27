@@ -1,0 +1,17 @@
+Grafana will run on main server:
+
+docker network create prometheus-network --driver bridge
+
+docker run -d --name node-exporter-node1 --network prometheus-network -p 9100:9100 bitnami/node-exporter:latest
+
+-----
+
+Run promethus and node exoter on the machine on which you need to monitor things.
+
+docker run -d --name node-exporter-node1 --network prometheus-network -p 9100:9100 bitnami/node-exporter:latest
+
+docker run -d --name prometheus-node1 -v /home/ubuntu/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml -p 8200:9090 bitnami/prometheus:latest
+
+Copy prometheus.yml from inside the container and render with you requriments.
+
+------
