@@ -1,0 +1,15 @@
+Run nginx-prometheus-exporter:
+
+docker run -p 9113:9113 nginx/nginx-prometheus-exporter:0.8.0 -nginx.scrape-uri http://host:8080/basic_status
+
+Make location block in nginx like:
+
+    location /basic_status{
+        stub_status on;
+    }
+    
+-- make sure to run nginx with "ngx_http_vhost_traffic_status_module.so" on.--
+
+docker buil -t mynginx .
+
+sudo docker run --name nginx --restart=always -v /usr/share/nginx/html/:/usr/share/nginx/html/ -v /etc/nginx/:/etc/nginx/ -p 80:80  -d mynginx:latest
